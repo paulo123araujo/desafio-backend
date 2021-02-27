@@ -9,3 +9,19 @@ services:
     volumes:
         - ./src/:/var/www/html:cached
         - ./logs/:/var/log/apache2
+
+  mysql:
+    image: mysql:8.0
+    container_name: desafio-ow-interative.mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: 1234
+    ports:
+        - "9011:3306"
+    networks:
+        - desafio-ow-interative
+
+networks:
+  desafio-ow-interative:
+    name: desafio-ow-interative
