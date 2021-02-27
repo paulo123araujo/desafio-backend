@@ -4,7 +4,7 @@ namespace Domain\Financial\UseCases\User;
 
 use Domain\Financial\Entities\User;
 
-interface RegisterUser
+interface RegisterUserUseCase
 {
     public function registerUser(User $user): User;
 }
