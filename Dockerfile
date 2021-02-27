@@ -19,4 +19,6 @@ RUN ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 COPY ./apache.conf /etc/apache2/sites-enabled/000-default.conf
 CMD ["apachectl", "-D", "FOREGROUND"]
 
+RUN apt-get install -y zip unzip
+
 WORKDIR /var/www/html
