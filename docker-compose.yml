@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  app:
+    build: .
+    container_name: desafio-ow-interative.app
+    ports:
+        - "9010:80"
+        - "9110:443"
+    volumes:
+        - ./src/:/var/www/html:cached
+        - ./logs/:/var/log/apache2
