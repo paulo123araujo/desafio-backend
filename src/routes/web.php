@@ -21,4 +21,5 @@ $router->group([
     "prefix" => "users"
 ], function () use ($router) {
     $router->get("/{userId}", "IlluminateAdapter@getUserById");
+    $router->get("/", "IlluminateAdapter@listAllUsers");
 }) ;
