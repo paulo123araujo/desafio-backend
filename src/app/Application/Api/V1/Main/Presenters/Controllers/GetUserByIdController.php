@@ -7,6 +7,7 @@ use App\Api\V1\Main\Presenters\Contracts\{
     ApiRequest,
     ApiResponse
 };
+use App\Api\V1\Main\Presenters\DTO\DTOUser;
 use Infra\Repositories\User\UserRepository;
 
 class GetUserByIdController implements ControllerInterface
@@ -28,11 +29,7 @@ class GetUserByIdController implements ControllerInterface
         ], [
             "status" => "ok",
             "data" => [
-                "user" => [
-                    "id" => $user->id(),
-                    "email" => $user->email()->email(),
-                    "birthDay" => $user->birthDay()->format("Y-m-d")
-                ]
+                "user" => (new DTOUser($user))->toResponseFormat()
             ]
         ]);
     }

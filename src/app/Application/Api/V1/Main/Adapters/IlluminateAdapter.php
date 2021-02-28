@@ -2,8 +2,12 @@
 
 namespace App\Api\V1\Main\Adapters;
 
-use App\Api\V1\Main\Factories\GetUserByIdFactory;
-use App\Api\V1\Main\Factories\ListAllUsersFactory;
+use App\Api\V1\Main\Factories\{
+    GetUserByIdFactory,
+    ListAllUsersFactory,
+    RegisterUserFactory,
+    RemoveUserFactory
+};
 use App\Api\V1\Main\Presenters\Contracts\ApiRequest;
 use Illuminate\Http\{Request, Response};
 
@@ -35,6 +39,36 @@ class IlluminateAdapter
         $apiRequest = new ApiRequest($url, $query, $request->all(), $headers, $urlVariables);
 
         $controller = ListAllUsersFactory::get();
+        $response = $controller->handle($apiRequest);
+        return response($response->dataBody(), $response->statusCode(), $response->headers());
+    }
+
+    public function registerUser(Request $request): Response
+    {
+        $urlVariables = [];
+        $headers = (array) $request->headers;
+        $url = $request->fullUrl();
+
+        $query = $this->getQueryString($request);
+
+        $apiRequest = new ApiRequest($url, $query, $request->all(), $headers, $urlVariables);
+
+        $controller = RegisterUserFactory::get();
+        $response = $controller->handle($apiRequest);
+        return response($response->dataBody(), $response->statusCode(), $response->headers());
+    }
+
+    public function removeUser(Request $request, int $userId): Response
+    {
+        $urlVariables = ["userId" => $userId];
+        $headers = (array) $request->headers;
+        $url = $request->fullUrl();
+
+        $query = $this->getQueryString($request);
+
+        $apiRequest = new ApiRequest($url, $query, $request->all(), $headers, $urlVariables);
+
+        $controller = RemoveUserFactory::get();
         $response = $controller->handle($apiRequest);
         return response($response->dataBody(), $response->statusCode(), $response->headers());
     }

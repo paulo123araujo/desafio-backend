@@ -22,4 +22,6 @@ $router->group([
 ], function () use ($router) {
     $router->get("/{userId}", "IlluminateAdapter@getUserById");
     $router->get("/", "IlluminateAdapter@listAllUsers");
+    $router->post("/", "IlluminateAdapter@registerUser");
+    $router->delete("/{userId}", "IlluminateAdapter@removeUser");
 }) ;

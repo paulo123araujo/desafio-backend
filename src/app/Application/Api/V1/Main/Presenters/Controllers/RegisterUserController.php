@@ -7,9 +7,12 @@ use App\Api\V1\Main\Presenters\Contracts\{
     ApiRequest,
     ApiResponse
 };
+use App\Api\V1\Main\Presenters\DTO\DTOUser;
+use Domain\Financial\Entities\Email;
+use Domain\Financial\Entities\User;
 use Infra\Repositories\User\UserRepository;
 
-class ListAllUsersController implements ControllerInterface
+class RegisterUserController implements ControllerInterface
 {
     private UserRepository $repository;
 
@@ -20,12 +23,14 @@ class ListAllUsersController implements ControllerInterface
 
     public function handle(ApiRequest $request): ApiResponse
     {
-        $users = $this->repository->listAllUsers();
+        $data = $request->dataBody();
+        $userData = new User(0, Email::create($data["email"]), new \DateTimeImmutable($data["birthDay"]), null, null, 0.000);
+        $user = $this->repository->registerUser($userData);
 
         return new ApiResponse(200, ["Content-Type" => "application/json"], [
             "status" => "ok",
             "data" => [
-                "users" => $users
+                "user" => (new DTOUser($user))->toResponseFormat()
             ]
         ]);
     }

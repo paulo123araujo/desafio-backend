@@ -61,7 +61,7 @@ class UserEloquentRepository extends UserRepository implements GetUserByIdUseCas
             new \DateTimeImmutable($modelUser->birthday),
             new \DateTimeImmutable($modelUser->created_at),
             new \DateTime($modelUser->updated_at),
-            $modelUser->opening_balance
+            isset($modelUser->opening_balance) ? $modelUser->opening_balance : 0.000
         );
     }
 }

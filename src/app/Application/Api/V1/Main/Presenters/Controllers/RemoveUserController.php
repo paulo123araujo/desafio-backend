@@ -9,7 +9,7 @@ use App\Api\V1\Main\Presenters\Contracts\{
 };
 use Infra\Repositories\User\UserRepository;
 
-class ListAllUsersController implements ControllerInterface
+class RemoveUserController implements ControllerInterface
 {
     private UserRepository $repository;
 
@@ -20,13 +20,12 @@ class ListAllUsersController implements ControllerInterface
 
     public function handle(ApiRequest $request): ApiResponse
     {
-        $users = $this->repository->listAllUsers();
+        $userId = $request->urlVariables()["userId"];
+        $userData = $this->repository->getUserById($userId);
+        $this->repository->removeUser($userData);
 
         return new ApiResponse(200, ["Content-Type" => "application/json"], [
-            "status" => "ok",
-            "data" => [
-                "users" => $users
-            ]
+            "status" => "ok"
         ]);
     }
 }
