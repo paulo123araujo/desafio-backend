@@ -107,7 +107,7 @@ $app->configure('app');
 */
 
 $app->router->group([
-    'namespace' => 'App\Api\V1\Main',
+    'namespace' => 'App\Api\V1\Main\Adapters',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });

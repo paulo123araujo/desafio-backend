@@ -20,15 +20,15 @@ class User
         int $id = null,
         Email $email,
         DateTimeImmutable $birthDay,
-        DateTimeImmutable $createdAt = new DateTimeImmutable(),
-        DateTime $updatedAt = new DateTime(),
+        DateTimeImmutable $createdAt = null,
+        DateTime $updatedAt = null,
         float $openingBalance = 0.000
     ) {
         $this->id = $id;
         $this->email = $email;
         $this->birthDay = $birthDay;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->createdAt = $createdAt === null ? new DateTimeImmutable() :  $createdAt;
+        $this->updatedAt = $updatedAt === null ? new DateTime() : $updatedAt;
         $this->openingBalance = $openingBalance;
     }
 

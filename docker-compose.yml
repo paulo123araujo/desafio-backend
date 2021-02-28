@@ -9,6 +9,10 @@ services:
     volumes:
         - ./src/:/var/www/html:cached
         - ./logs/:/var/log/apache2
+    depends_on:
+      - mysql
+    networks:
+        - desafio-ow-interative
 
   mysql:
     image: mysql:8.0

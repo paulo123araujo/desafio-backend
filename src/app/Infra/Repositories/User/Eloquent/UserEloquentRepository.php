@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Repositories\Eloquent;
+namespace Infra\Repositories\User\Eloquent;
 
 use Domain\Financial\Entities\{Email, User};
 use Domain\Financial\UseCases\User\{
@@ -10,9 +10,17 @@ use Domain\Financial\UseCases\User\{
     RegisterUserUseCase
 };
 use Infra\Models\User as ModelUser;
+use Infra\Repositories\User\UserRepository;
 
-class UserEloquentRepository extends AbstractEloquentRepository implements GetUserByIdUseCase, ListAllUsersUseCase, RemoveUserUseCase, RegisterUserUseCase
+class UserEloquentRepository extends UserRepository implements GetUserByIdUseCase, ListAllUsersUseCase, RemoveUserUseCase, RegisterUserUseCase
 {
+    private string $model;
+
+    public function __construct(string $model)
+    {
+        $this->model = $model;
+    }
+
     public function getUserById(int $id): User
     {
         $modelUser = $this->model::findOrFail($id);

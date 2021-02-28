@@ -19,7 +19,7 @@ class Email
 
     private function validate(string $email): void
     {
-        if (!preg_match("/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i", $email)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \Exception("Email inválido");
         }
     }

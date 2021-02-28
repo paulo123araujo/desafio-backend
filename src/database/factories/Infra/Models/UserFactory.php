@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Infra\Models;
 
-use App\Models\User;
+use Infra\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -22,8 +22,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'birthday' => $this->faker->date(),
+            'opening_balance' => $this->faker->numerify("#####.###")
         ];
     }
 }
