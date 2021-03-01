@@ -1,6 +1,6 @@
 ## Documentação Desafio
 
-**Documentação da API: (postman)[./docs/Desafio Ow Interative.postman_collection.json]**
+**Documentação da API: [postman](./docs/Desafio Ow Interative.postman_collection.json)**
 
 ### Detalhes
  - Tentei aplicar alguns conceitos de DDD, Clean Architecture, design Patterns, SOLID
