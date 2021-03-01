@@ -18,7 +18,8 @@ class DTOUser
         return [
             "id" => $this->user->id(),
             "email" => $this->user->email()->email(),
-            "birthDay" => $this->user->birthDay()->format("Y-m-d")
+            "birthDay" => $this->user->birthDay()->format("Y-m-d"),
+            "opening_balance" => $this->user->openingBalance()
         ];
     }
 }

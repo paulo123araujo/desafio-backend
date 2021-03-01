@@ -13,6 +13,8 @@ class User extends Model
 
     protected $guard = ["created_at", "updated_at"];
 
+    protected $fillable = ["email", "birthday", "opening_balance"];
+
     public function movements()
     {
         return $this->hasMany(Movement::class);

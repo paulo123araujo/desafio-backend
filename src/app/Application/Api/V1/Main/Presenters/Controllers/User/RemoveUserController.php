@@ -22,6 +22,7 @@ class RemoveUserController implements ControllerInterface
     {
         $userId = $request->urlVariables()["userId"];
         $userData = $this->repository->getUserById($userId);
+
         $this->repository->removeUser($userData);
 
         return new ApiResponse(200, ["Content-Type" => "application/json"], [

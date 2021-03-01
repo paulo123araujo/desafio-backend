@@ -12,19 +12,14 @@ use Domain\Financial\UseCases\Movement\{
     RemoveMovementUseCase
 };
 
-class MovementRepository implements ListAllMovementsUseCase, ListAllMovementsPaginatedUseCase, ListMovementsByDateUseCase, RegisterMovementUseCase, RemoveMovementUseCase
+class MovementRepository implements ListAllMovementsUseCase, ListMovementsByDateUseCase, RegisterMovementUseCase, RemoveMovementUseCase
 {
     public function listAllMovements(): array
     {
         throw new \Exception("Not Implemented");
     }
 
-    public function listAllMovementsPaginated(): array
-    {
-        throw new \Exception("Not Implemented");
-    }
-
-    public function listMovementsByDate(DateTime $date): array
+    public function listMovementsByDate($filter): array
     {
         throw new \Exception("Not Implemented");
     }

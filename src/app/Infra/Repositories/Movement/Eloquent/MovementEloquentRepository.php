@@ -24,24 +24,32 @@ class MovementEloquentRepository extends MovementRepository
 
     public function listAllMovements(): array
     {
-        $movements = $this->model::with(["user"])->all()->toArray();
+        $movements = DB::table("movements")
+            ->select(["users.id as user_id", "users.email", "users.birthday", "users.created_at as user_created_at", "users.opening_balance", "movements.*"])
+            ->join("users", "users.id", "=", "movements.user_id")
+            ->get()->toArray();
         return $movements;
     }
 
-    public function listAllMovementsPaginated(): array
+    public function listMovementsByDate($filter): array
     {
-        $movements = $this->model::with(["user"])->paginate();
-        return (array) $movements;
-    }
-
-    public function listMovementsByDate(DateTime $date): array
-    {
-        $movements = DB::table("movements")
+        $select = DB::table("movements")
             ->select(["users.id as user_id", "users.email", "users.birthday", "users.created_at as user_created_at", "users.opening_balance", "movements.*"])
-            ->whereDate("created_at", "=", $date)
-            ->join("users", "users.id", "=", "movements.user_id")
-            ->get()
-            ->toArray();
+            ->join("users", "users.id", "=", "movements.user_id");
+
+        $filter = urldecode($filter);
+
+        if ($filter === "since30days") {
+            $select = $select->whereRaw("DATE(movements.created_at) >= DATE(NOW()) - INTERVAL 30 DAY");
+        }
+
+        if ($filter !== "since30days") {
+            list($month, $year) = explode("/", $filter);
+            $select = $select
+                ->whereRaw("MONTH(movements.created_at) = ? AND YEAR(movements.created_at) = ?", [$month, $year]);
+        }
+
+        $movements = $select->get()->toArray();
 
         return $movements;
     }

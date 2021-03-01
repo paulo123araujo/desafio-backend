@@ -3,6 +3,7 @@
 namespace App\Api\V1\Main\Adapters;
 
 use App\Api\V1\Main\Factories\Movement\{
+    ListMovementsFactory,
     RegisterMovementFactory,
     RemoveMovementFactory
 };
@@ -11,6 +12,52 @@ use Illuminate\Http\{Request, Response};
 
 class MovementIlluminateAdapter
 {
+    public function listMovements(Request $request)
+    {
+        $apiRequest = $this->createApiRequest($request);
+
+        $controller = ListMovementsFactory::get();
+        $response = $controller->handle($apiRequest);
+
+        $filename = "movements.csv";
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, [
+            "user_id",
+            "email",
+            "birthday",
+            "user_created_at",
+            "opening_balance",
+            "movement_id",
+            "movement_type",
+            "movement_value",
+            "movement_created_at",
+            "movement_updated_at"
+        ]);
+
+        foreach($response->dataBody()["data"] as $row) {
+            fputcsv($handle, [
+                $row->user_id,
+                $row->email,
+                $row->birthday,
+                $row->user_created_at,
+                $row->opening_balance,
+                $row->id,
+                $row->type,
+                $row->value,
+                $row->created_at,
+                $row->updated_at
+            ]);
+        }
+
+        fclose($handle);
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return response()->download($filename, $filename, $headers);
+    }
+
     public function registerMovement(Request $request, int $userId): Response
     {
         $urlVariables = ["userId" => $userId];

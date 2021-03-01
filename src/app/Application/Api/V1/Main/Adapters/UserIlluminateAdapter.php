@@ -3,10 +3,13 @@
 namespace App\Api\V1\Main\Adapters;
 
 use App\Api\V1\Main\Factories\User\{
+    GetUserBalanceFactory,
     GetUserByIdFactory,
     ListAllUsersFactory,
+    ListUsersAndMovementsFactory,
     RegisterUserFactory,
-    RemoveUserFactory
+    RemoveUserFactory,
+    UpdateUserOpeningBalanceFactory
 };
 use App\Api\V1\Main\Presenters\Contracts\ApiRequest;
 use Illuminate\Http\{Request, Response};
@@ -23,6 +26,15 @@ class UserIlluminateAdapter
         return response($response->dataBody(), $response->statusCode(), $response->headers());
     }
 
+    public function registerUser(Request $request): Response
+    {
+        $apiRequest = $this->createApiRequest($request);
+
+        $controller = RegisterUserFactory::get();
+        $response = $controller->handle($apiRequest);
+        return response($response->dataBody(), $response->statusCode(), $response->headers());
+    }
+
     public function listAllUsers(Request $request): Response
     {
         $apiRequest = $this->createApiRequest($request);
@@ -32,11 +44,33 @@ class UserIlluminateAdapter
         return response($response->dataBody(), $response->statusCode(), $response->headers());
     }
 
-    public function registerUser(Request $request): Response
+    public function listUsersAndMovements(Request $request): Response
     {
         $apiRequest = $this->createApiRequest($request);
 
-        $controller = RegisterUserFactory::get();
+        $controller = ListUsersAndMovementsFactory::get();
+        $response = $controller->handle($apiRequest);
+        return response($response->dataBody(), $response->statusCode(), $response->headers());
+    }
+
+    public function updateUserOpeningBalance(Request $request, int $userId): Response
+    {
+        $urlVariables = ["userId" => $userId];
+
+        $apiRequest = $this->createApiRequest($request, $urlVariables);
+
+        $controller = UpdateUserOpeningBalanceFactory::get();
+        $response = $controller->handle($apiRequest);
+        return response($response->dataBody(), $response->statusCode(), $response->headers());
+    }
+
+    public function getUserBalance(Request $request, int $userId): Response
+    {
+        $urlVariables = ["userId" => $userId];
+
+        $apiRequest = $this->createApiRequest($request, $urlVariables);
+
+        $controller = GetUserBalanceFactory::get();
         $response = $controller->handle($apiRequest);
         return response($response->dataBody(), $response->statusCode(), $response->headers());
     }

@@ -62,9 +62,9 @@ class User
         return $this->birthDay;
     }
 
-    public function setOpeningBalance(float $openingBalance): void
+    public function setOpeningBalance(float $openingBalance, DateTime $updatedAt): void
     {
         $this->openingBalance = $openingBalance;
-        $this->updatedAt = Carbon::now();
+        $this->updatedAt = $updatedAt;
     }
 }
