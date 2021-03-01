@@ -2,7 +2,7 @@ version: "3.5"
 services:
   app:
     build: .
-    container_name: desafio-ow-interative.app
+    container_name: desafio-ow-interactive.app
     ports:
         - "9010:80"
         - "9110:443"
@@ -12,11 +12,11 @@ services:
     depends_on:
       - mysql
     networks:
-        - desafio-ow-interative
+        - desafio-ow-interactive
 
   mysql:
     image: mysql:8.0
-    container_name: desafio-ow-interative.mysql
+    container_name: desafio-ow-interactive.mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
@@ -24,8 +24,8 @@ services:
     ports:
         - "9011:3306"
     networks:
-        - desafio-ow-interative
+        - desafio-ow-interactive
 
 networks:
   desafio-ow-interative:
-    name: desafio-ow-interative
+    name: desafio-ow-interactive

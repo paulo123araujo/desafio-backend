@@ -29,5 +29,5 @@ Agora crie o banco de dados no container e sete ele no .env da aplicação.
 
 Criei alguns seeders para ajudar nos testes
 ```bash
-$ docker exec -it desafio-ow-interative.app php artisan migrate --seed
+$ docker exec -it desafio-ow-interactive.app php artisan migrate --seed
 ```
