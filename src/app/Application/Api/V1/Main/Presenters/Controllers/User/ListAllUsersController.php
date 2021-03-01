@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V1\Main\Presenters\Controllers;
+namespace App\Api\V1\Main\Presenters\Controllers\User;
 
 use App\Api\V1\Main\Presenters\Contracts\{
     ControllerInterface,
@@ -9,7 +9,7 @@ use App\Api\V1\Main\Presenters\Contracts\{
 };
 use Infra\Repositories\User\UserRepository;
 
-class RemoveUserController implements ControllerInterface
+class ListAllUsersController implements ControllerInterface
 {
     private UserRepository $repository;
 
@@ -20,12 +20,13 @@ class RemoveUserController implements ControllerInterface
 
     public function handle(ApiRequest $request): ApiResponse
     {
-        $userId = $request->urlVariables()["userId"];
-        $userData = $this->repository->getUserById($userId);
-        $this->repository->removeUser($userData);
+        $users = $this->repository->listAllUsers();
 
         return new ApiResponse(200, ["Content-Type" => "application/json"], [
-            "status" => "ok"
+            "status" => "ok",
+            "data" => [
+                "users" => $users
+            ]
         ]);
     }
 }

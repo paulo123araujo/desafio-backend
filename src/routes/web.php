@@ -20,8 +20,11 @@ $router->get('/', function () use ($router) {
 $router->group([
     "prefix" => "users"
 ], function () use ($router) {
-    $router->get("/{userId}", "IlluminateAdapter@getUserById");
-    $router->get("/", "IlluminateAdapter@listAllUsers");
-    $router->post("/", "IlluminateAdapter@registerUser");
-    $router->delete("/{userId}", "IlluminateAdapter@removeUser");
+    $router->get("/{userId}", "UserIlluminateAdapter@getUserById");
+    $router->get("/", "UserIlluminateAdapter@listAllUsers");
+    $router->post("/", "UserIlluminateAdapter@registerUser");
+    $router->delete("/{userId}", "UserIlluminateAdapter@removeUser");
+
+    $router->post("/{userId}/movements", "MovementIlluminateAdapter@registerMovement");
+    $router->delete("/{userId}/movements/{movementId}", "MovementIlluminateAdapter@removeMovement");
 }) ;

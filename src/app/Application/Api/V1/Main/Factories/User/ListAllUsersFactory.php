@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Api\V1\Main\Factories;
+namespace App\Api\V1\Main\Factories\User;
 
 use App\Api\V1\Main\Presenters\Contracts\ControllerInterface;
-use App\Api\V1\Main\Presenters\Controllers\GetUserByIdController;
+use App\Api\V1\Main\Presenters\Controllers\User\ListAllUsersController;
 use Infra\Models\User;
 use Infra\Repositories\User\Eloquent\UserEloquentRepository;
 
-class GetUserByIdFactory
+class ListAllUsersFactory
 {
     public static function get(): ControllerInterface
     {
         $model = User::class;
         $repository = new UserEloquentRepository($model);
-        return new GetUserByIdController($repository);
+        return new ListAllUsersController($repository);
     }
 }

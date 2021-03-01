@@ -11,7 +11,7 @@ class Movement extends Model
 
     protected $table = "movements";
 
-    protected $guard = ["created_at"];
+    protected $guard = ["updated_at"];
 
     public function user()
     {
