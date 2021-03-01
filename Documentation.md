@@ -25,7 +25,28 @@ $ docker-compose up -d --build
 
 Assim a aplicação estará de pé e pronta para usa-la.
 
-Agora crie o banco de dados no container e sete ele no .env da aplicação.
+Entre no container e rode o composer install
+```bash
+$ docker exec -it desafio-ow-interactive.app composer install
+```
+
+Entre no container do mysql e crie um banco de dados
+```bash
+$ docker exec -it desafio-ow-interactive.mysql mysql -u root -p
+# dentro do container
+$ CREATE DATABASE desafio CHARSET=utf8;
+```
+
+Configure seu .env de acordo com os dados do docker e do mysql, exemplo:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=desafio-ow-interactive.mysql
+DB_PORT=3306
+DB_DATABASE=desafio_ow_interactive
+DB_USERNAME=root
+DB_PASSWORD=1234
+```
 
 Criei alguns seeders para ajudar nos testes
 ```bash
