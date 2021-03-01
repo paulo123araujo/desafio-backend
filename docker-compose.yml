@@ -27,5 +27,5 @@ services:
         - desafio-ow-interactive
 
 networks:
-  desafio-ow-interative:
+  desafio-ow-interactive:
     name: desafio-ow-interactive
